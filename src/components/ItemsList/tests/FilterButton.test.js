@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import FilterButton from '..'
+import FilterButton from '../FilterButton'
 
 describe('filter button', () => {
 	it('Sets button text', () => {
