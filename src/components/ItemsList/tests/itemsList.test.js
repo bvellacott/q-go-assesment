@@ -2,7 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import FilterButton from '../FilterButton';
-import ItemsListContainer, { ItemsList } from '../index';
+import ItemsListContainer, { 
+  ItemsList,
+  mapStateToProps,
+} from '../index';
 import Item from '../../Item'
 import configureStore from 'redux-mock-store'
 
@@ -47,38 +50,6 @@ describe('ItemsList', () => {
     const items = [{ id: 1, content: 'Test 1' }, { id: 2, content: 'Test 2' }];
     const renderedItem = shallow(<ItemsList {...defaultProps} items={items} />);
     expect(renderedItem.find('.itemsList-ul li')).toHaveLength(2);
-  });
-
-  it('complete filters work', () => {
-    const items = [
-      { id: 1, content: 'Test 1', complete: true }, 
-      { id: 2, content: 'Test 2', complete: false },
-    ]
-    const renderedItem = shallow(
-      <ItemsList 
-        {...defaultProps} 
-        items={items}
-        filter='complete'
-      />)
-    const completedItem = renderedItem.find(Item)
-    expect(completedItem).toHaveLength(1)
-    expect(completedItem.props().content).toEqual('Test 1')
-  });
-
-  it('incomplete filters work', () => {
-    const items = [
-      { id: 1, content: 'Test 1', complete: true }, 
-      { id: 2, content: 'Test 2', complete: false },
-    ]
-    const renderedItem = shallow(
-      <ItemsList 
-        {...defaultProps} 
-        items={items}
-        filter='incomplete'
-      />)
-    const incompleteItem = renderedItem.find(Item)
-    expect(incompleteItem).toHaveLength(1)
-    expect(incompleteItem.props().content).toEqual('Test 2')
   });
 
   it('Renders item component and passes toggle and remove actions', () => {
@@ -161,5 +132,41 @@ describe('ItemsList', () => {
     ])
 
     expect(toJson(wrapper)).toMatchSnapshot()
+  })
+
+  it('complete filters work', () => {
+    const stateProps = mapStateToProps({
+      todos: {
+        items: [
+          { id: 1, content: 'Test 1', complete: true }, 
+          { id: 2, content: 'Test 2', complete: false },
+        ],
+        filter: 'complete',
+      }
+    })
+    expect(stateProps).toEqual({
+      items: [
+        { id: 1, content: 'Test 1', complete: true }, 
+      ],
+      filter: 'complete',
+    })
+  })
+
+  it('incomplete filters work', () => {
+    const stateProps = mapStateToProps({
+      todos: {
+        items: [
+          { id: 1, content: 'Test 1', complete: true }, 
+          { id: 2, content: 'Test 2', complete: false },
+        ],
+        filter: 'incomplete',
+      }
+    })
+    expect(stateProps).toEqual({
+      items: [
+          { id: 2, content: 'Test 2', complete: false },
+      ],
+      filter: 'incomplete',
+    })
   })
 });

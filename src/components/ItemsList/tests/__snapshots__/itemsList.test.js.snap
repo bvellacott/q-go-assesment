@@ -2,6 +2,7 @@
 
 exports[`ItemsList passes items and merged filter actions from store 1`] = `
 <Component
+  filter="all"
   filterAll={[Function]}
   filterComplete={[Function]}
   filterIncomplete={[Function]}

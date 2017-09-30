@@ -36,6 +36,7 @@ export const ItemsList = ({ items, filterAll,
 
 ItemsList.propTypes = {
   items: PropTypes.array.isRequired,
+  filter: PropTypes.string.isRequired,
   filterAll: PropTypes.func.isRequired,
   filterComplete: PropTypes.func.isRequired,
   filterIncomplete: PropTypes.func.isRequired,
@@ -43,8 +44,19 @@ ItemsList.propTypes = {
   toggleTodoComplete: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({ 
-  items: state.todos.items,
+const filterItems = ({items, filter}) => {
+  if(filter === 'complete') {
+    return items.filter(item => item.complete)
+  } else if(filter === 'incomplete') {
+    return items.filter(item => !item.complete)
+  }
+  return items
+}
+
+export const mapStateToProps = state => ({
+  // should use selector here
+  items: filterItems(state.todos),
+  filter: state.todos.filter,
 })
 
 const mapDispatchToProps = {
@@ -54,7 +66,6 @@ const mapDispatchToProps = {
 }
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  items: [],
   ...ownProps,
   ...stateProps,
   ...dispatchProps,
