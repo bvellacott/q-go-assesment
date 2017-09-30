@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { ItemsList } from '../index';
 
 const defaultProps = {
@@ -27,4 +27,16 @@ describe('ItemsList', () => {
     const renderedItem = shallow(<ItemsList {...defaultProps} items={items} />);
     expect(renderedItem.find('li')).toHaveLength(2);
   });
+
+  it('renders show all filter with onClick that sets filter type "all"', () => {
+    throw new Error('test not implemented')
+  })
+
+  it('renders show complete filter with onClick that sets filter type "complete"', () => {
+    throw new Error('test not implemented')
+  })
+
+  it('renders show incomplete filter with onClick that sets filter type "incomplete"', () => {
+    throw new Error('test not implemented')
+  })
 });

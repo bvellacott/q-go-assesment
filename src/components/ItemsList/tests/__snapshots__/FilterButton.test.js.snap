@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`filter button Sets button text 1`] = `
+<FilterButton>
+  <button
+    className="itemList_filterButton"
+    onClick={undefined}
+  >
+    test filter
+  </button>
+</FilterButton>
+`;
+
+exports[`filter button calls setFilter on click 1`] = `
+<FilterButton
+  setFilter={[Function]}
+>
+  <button
+    className="itemList_filterButton"
+    onClick={[Function]}
+  />
+</FilterButton>
+`;
