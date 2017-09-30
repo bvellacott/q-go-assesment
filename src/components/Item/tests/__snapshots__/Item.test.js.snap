@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Item component calls remove() when remove button clicked 1`] = `
+<Item
+  remove={[Function]}
+>
+  <span
+    className="item item_incomplete"
+  >
+    <span
+      className="item_content"
+    />
+    <button
+      className="item_removeButton"
+      onClick={[Function]}
+    >
+      X
+    </button>
+  </span>
+</Item>
+`;
+
+exports[`Item component calls toggleComplete() when toggle complete button clicked 1`] = `
+<Item
+  toggleComplete={[Function]}
+>
+  <span
+    className="item item_incomplete"
+  >
+    <button
+      className="item_toggleCompleteButton"
+      onClick={[Function]}
+    >
+      set to incomplete
+    </button>
+    <span
+      className="item_content"
+    />
+  </span>
+</Item>
+`;
+
+exports[`Item component does not render remove or toggleComplete button when handlers not passed 1`] = `
+<Item>
+  <span
+    className="item item_incomplete"
+  >
+    <span
+      className="item_content"
+    />
+  </span>
+</Item>
+`;
+
+exports[`Item component renders complete class when complete 1`] = `
+<Item
+  complete={true}
+>
+  <span
+    className="item item_complete"
+  >
+    <span
+      className="item_content"
+    />
+  </span>
+</Item>
+`;
+
+exports[`Item component renders content span with content 1`] = `
+<Item
+  content="test todo"
+>
+  <span
+    className="item item_incomplete"
+  >
+    <span
+      className="item_content"
+    >
+      test todo
+    </span>
+  </span>
+</Item>
+`;
+
+exports[`Item component renders incomplete class when incomplete 1`] = `
+<Item
+  complete={false}
+>
+  <span
+    className="item item_incomplete"
+  >
+    <span
+      className="item_content"
+    />
+  </span>
+</Item>
+`;
