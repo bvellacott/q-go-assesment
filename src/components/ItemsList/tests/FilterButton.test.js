@@ -4,10 +4,18 @@ import FilterButton from '..'
 
 describe('filter button', () => {
 	it('Sets button text', () => {
-		throw new Error('test not implemented')
+		const wrapper = mount(<FilterButton>test filter</FilterButton>)
+		const filterButton = wrapper.find('.itemList_filterButton')
+		expect(filterButton.length).toEqual(1)
+		expect(filterButton.text()).toEqual('test filter')
 	})
 
 	it('calls setFilter on click', () => {
-		throw new Error('test not implemented')
+		const setFilter = jest.fn()
+		const wrapper = mount(<FilterButton setFilter={setFilter} />)
+		const filterButton = wrapper.find('.itemList_filterButton')
+		expect(filterButton.length).toEqual(1)
+		filterButton.simulate('click')
+		expect(setFilter).toHaveBeenCalled()
 	})
 })
