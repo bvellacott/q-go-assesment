@@ -62,7 +62,7 @@ describe('ItemsList', () => {
     const item = renderedItem.find(Item)
     expect(item).toHaveLength(1)
 
-    let itemProps = items.props()
+    let itemProps = item.props()
     expect(typeof itemProps.toggleComplete).toEqual('function')
     expect(typeof itemProps.remove).toEqual('function')
 
@@ -108,14 +108,14 @@ describe('ItemsList', () => {
     expect(typeof passedProps.filterAll).toEqual('function')
     expect(typeof passedProps.filterComplete).toEqual('function')
     expect(typeof passedProps.filterIncomplete).toEqual('function')
-    expect(typeof passedProps.mockToggleTodoComplete).toEqual('function')
-    expect(typeof passedProps.mockRemoveTodo).toEqual('function')
+    expect(typeof passedProps.toggleTodoComplete).toEqual('function')
+    expect(typeof passedProps.removeTodo).toEqual('function')
 
     passedProps.filterAll()
     passedProps.filterComplete()
     passedProps.filterIncomplete()
-    passedProps.mockToggleTodoComplete('id_123')
-    passedProps.mockRemoveTodo('id_123')
+    passedProps.toggleTodoComplete('id_123')
+    passedProps.removeTodo('id_123')
 
     expect(store.getActions()).toEqual([
       { type: 'test_set_filter', filter: 'all' },

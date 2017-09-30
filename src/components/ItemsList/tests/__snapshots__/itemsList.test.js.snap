@@ -12,6 +12,7 @@ exports[`ItemsList passes items and merged filter actions from store 1`] = `
       3,
     ]
   }
+  removeTodo={[Function]}
   setFilter={[Function]}
   store={
     Object {
@@ -44,6 +45,7 @@ exports[`ItemsList passes items and merged filter actions from store 1`] = `
       "unsubscribe": [Function],
     }
   }
+  toggleTodoComplete={[Function]}
 />
 `;
 

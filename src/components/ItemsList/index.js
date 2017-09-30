@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setFilter } from '../../logic/actions'
+import { 
+  setFilter,
+  removeTodo,
+  toggleTodoComplete,
+} from '../../logic/actions'
 import FilterButton from './FilterButton'
+import Item from '../Item'
 import './styles.css';
 
-export const ItemsList = ({ items, filterAll, filterComplete, filterIncomplete }) => {
+export const ItemsList = ({ items, filterAll, 
+  filterComplete, filterIncomplete, removeTodo, toggleTodoComplete }) => {
   return (
     <div>
       <ul className="filterList_actionBar">
@@ -15,7 +21,14 @@ export const ItemsList = ({ items, filterAll, filterComplete, filterIncomplete }
       </ul>
       <ul className={'itemsList-ul'}>
         {items.length < 1 && <p id={'items-missing'}>Add some tasks above.</p>}
-        {items.map(item => <li key={item.id}>{item.content}</li>)}
+        {items.map(item => (
+          <li key={item.id}>
+            <Item 
+              {...item}
+              remove={() => removeTodo(item.id)}
+              toggleComplete={() => toggleTodoComplete(item.id)}
+            />
+          </li>))}
       </ul>
     </div>
   );
@@ -26,6 +39,8 @@ ItemsList.propTypes = {
   filterAll: PropTypes.func.isRequired,
   filterComplete: PropTypes.func.isRequired,
   filterIncomplete: PropTypes.func.isRequired,
+  removeTodo: PropTypes.func.isRequired,
+  toggleTodoComplete: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({ 
@@ -33,7 +48,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  setFilter: setFilter,
+  setFilter,
+  removeTodo,
+  toggleTodoComplete, 
 }
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -43,7 +60,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...dispatchProps,
   filterAll: () => dispatchProps.setFilter('all'), 
   filterComplete: () => dispatchProps.setFilter('complete'), 
-  filterIncomplete: () => dispatchProps.setFilter('incomplete'), 
+  filterIncomplete: () => dispatchProps.setFilter('incomplete'),
 })
 
 export default connect(
