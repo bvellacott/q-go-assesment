@@ -3,11 +3,16 @@ import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import FilterButton from '../FilterButton';
 import ItemsListContainer, { ItemsList } from '../index';
+import Item from '../../Item'
 import configureStore from 'redux-mock-store'
 
 let mockSetFilter
+let mockToggleTodoComplete
+let mockRemoveTodo
 jest.mock('../../../logic/actions', () => ({
-  setFilter: (...args) => mockSetFilter(...args)
+  setFilter: (...args) => mockSetFilter(...args),
+  toggleTodoComplete: (...args) => mockToggleTodoComplete(...args),
+  removeTodo: (...args) => mockRemoveTodo(...args),
 }), { virtual: true })
 
 const mockStore = configureStore([])
@@ -17,6 +22,8 @@ const defaultProps = {
   filterAll: () => {},
   filterComplete: () => {},
   filterIncomplete: () => {},
+  toggleTodoComplete: () => {},
+  removeTodo: () => {},
 };
 
 describe('ItemsList', () => {
@@ -39,6 +46,31 @@ describe('ItemsList', () => {
     const items = [{ id: 1, content: 'Test 1' }, { id: 2, content: 'Test 2' }];
     const renderedItem = shallow(<ItemsList {...defaultProps} items={items} />);
     expect(renderedItem.find('.itemsList-ul li')).toHaveLength(2);
+  });
+
+  it('Renders item component and passes toggle and remove actions', () => {
+    const toggleTodoComplete = jest.fn()
+    const removeTodo = jest.fn()
+
+    const items = [{ id: 1, content: 'Test 1' }]
+    const renderedItem = shallow(<ItemsList 
+      {...defaultProps} 
+      items={items}
+      toggleTodoComplete={toggleTodoComplete}
+      removeTodo={removeTodo}
+    />)
+    const item = renderedItem.find(Item)
+    expect(item).toHaveLength(1)
+
+    let itemProps = items.props()
+    expect(typeof itemProps.toggleComplete).toEqual('function')
+    expect(typeof itemProps.remove).toEqual('function')
+
+    itemProps.toggleComplete()
+    expect(toggleTodoComplete).toHaveBeenCalledWith(1)
+
+    itemProps.remove()
+    expect(removeTodo).toHaveBeenCalledWith(1)
   });
 
   it('renders filter button and correct handlers', () => {
@@ -64,7 +96,9 @@ describe('ItemsList', () => {
         items: [1, 2, 3],
       }
     })
-    mockSetFilter = filter => ({ type: 'test_type', filter })
+    mockSetFilter = filter => ({ type: 'test_set_filter', filter })
+    mockToggleTodoComplete = id => ({ type: 'test_toggle_complete', id })
+    mockRemoveTodo = id => ({ type: 'test_remove_todo', id })
 
     const wrapper = shallow(<ItemsListContainer store={store} />);
 
@@ -74,15 +108,21 @@ describe('ItemsList', () => {
     expect(typeof passedProps.filterAll).toEqual('function')
     expect(typeof passedProps.filterComplete).toEqual('function')
     expect(typeof passedProps.filterIncomplete).toEqual('function')
+    expect(typeof passedProps.mockToggleTodoComplete).toEqual('function')
+    expect(typeof passedProps.mockRemoveTodo).toEqual('function')
 
     passedProps.filterAll()
     passedProps.filterComplete()
     passedProps.filterIncomplete()
+    passedProps.mockToggleTodoComplete('id_123')
+    passedProps.mockRemoveTodo('id_123')
 
     expect(store.getActions()).toEqual([
-      { type: 'test_type', filter: 'all' },
-      { type: 'test_type', filter: 'complete' },
-      { type: 'test_type', filter: 'incomplete' },
+      { type: 'test_set_filter', filter: 'all' },
+      { type: 'test_set_filter', filter: 'complete' },
+      { type: 'test_set_filter', filter: 'incomplete' },
+      { type: 'test_toggle_complete', id: 'id_123' },
+      { type: 'test_remove_todo', id: 'id_123' },
     ])
 
     expect(toJson(wrapper)).toMatchSnapshot()
