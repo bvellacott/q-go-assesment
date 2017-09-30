@@ -21,7 +21,7 @@ describe('todo actions', () => {
 	})
 
 	it('toggleTodoComplete', () => {
-		expect(toggleTodoComplete('id_123')).toEqual({ type: TOGGLE_ITEM_COMPLETE, content: 'id_123' })
+		expect(toggleTodoComplete('id_123')).toEqual({ type: TOGGLE_ITEM_COMPLETE, id: 'id_123' })
 	})
 
 	it('addItem', () => {
