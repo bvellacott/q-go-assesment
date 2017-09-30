@@ -1,3 +1,5 @@
+import React from 'react'
+
 const Item = ({ content, complete, remove, toggleComplete }) => (
 	<span className={`item ${complete ? 'item_complete' : 'item_incomplete'}`}>
 		{toggleComplete && (
