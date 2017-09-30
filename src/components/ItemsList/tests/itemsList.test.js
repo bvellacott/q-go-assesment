@@ -1,5 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
+import FilterButton from '../FilterButton';
 import { ItemsList } from '../index';
 
 const defaultProps = {
@@ -28,15 +30,20 @@ describe('ItemsList', () => {
     expect(renderedItem.find('li')).toHaveLength(2);
   });
 
-  it('renders show all filter with onClick that sets filter type "all"', () => {
-    throw new Error('test not implemented')
-  })
+  it('renders filter button and correct handlers', () => {
+    const wrapper = shallow(<ItemsList 
+      {...defaultProps} 
+      filterAll={() => 'all'}
+      filterComplete={() => 'complete'}
+      filterIncomplete={() => 'incomplete'}
+    />);
 
-  it('renders show complete filter with onClick that sets filter type "complete"', () => {
-    throw new Error('test not implemented')
-  })
+    const filterButtons = wrapper.find(FilterButton)
+    expect(filterButtons.length).toEqual(3)
+    expect(filterButtons.at(0).props().onClick()).toEqual('all')
+    expect(filterButtons.at(1).props().onClick()).toEqual('complete')
+    expect(filterButtons.at(2).props().onClick()).toEqual('incomplete')
 
-  it('renders show incomplete filter with onClick that sets filter type "incomplete"', () => {
-    throw new Error('test not implemented')
+    expect(toJson(wrapper)).toMatchSnapshot()
   })
 });

@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemsList renders filter button and correct handlers 1`] = `
+<div>
+  <ul
+    className="filterList_actionBar"
+  >
+    <li>
+      <FilterButton
+        onClick={[Function]}
+      >
+        Show all
+      </FilterButton>
+    </li>
+    <li>
+      <FilterButton
+        onClick={[Function]}
+      >
+        Show complete
+      </FilterButton>
+    </li>
+    <li>
+      <FilterButton
+        onClick={[Function]}
+      >
+        Show incomplete
+      </FilterButton>
+    </li>
+  </ul>
+  <ul
+    className="itemsList-ul"
+  >
+    <p
+      id="items-missing"
+    >
+      Add some tasks above.
+    </p>
+  </ul>
+</div>
+`;
