@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { setFilter } from '../../logic/actions'
 import FilterButton from './FilterButton'
 import './styles.css';
 
@@ -22,12 +23,31 @@ export const ItemsList = ({ items, filterAll, filterComplete, filterIncomplete }
 
 ItemsList.propTypes = {
   items: PropTypes.array.isRequired,
+  filterAll: PropTypes.func.isRequired,
+  filterComplete: PropTypes.func.isRequired,
+  filterIncomplete: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => {
-  return { 
-    items: state.todos.items,
-  };
-};
+const mapStateToProps = state => ({ 
+  items: state.todos.items,
+})
 
-export default connect(mapStateToProps)(ItemsList);
+const mapDispatchToProps = {
+  setFilter: setFilter,
+}
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  items: [],
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  filterAll: () => dispatchProps.setFilter('all'), 
+  filterComplete: () => dispatchProps.setFilter('complete'), 
+  filterIncomplete: () => dispatchProps.setFilter('incomplete'), 
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps,
+)(ItemsList);
