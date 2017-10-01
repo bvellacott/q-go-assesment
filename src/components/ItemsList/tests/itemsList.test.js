@@ -77,7 +77,7 @@ describe('ItemsList', () => {
     expect(removeTodo).toHaveBeenCalledWith(1)
   });
 
-  it('renders filter button and correct handlers', () => {
+  it('renders complete and incomplete filter buttons and correct handlers', () => {
     const wrapper = shallow(<ItemsList 
       {...defaultProps} 
       filterAll={() => 'all'}
@@ -86,10 +86,26 @@ describe('ItemsList', () => {
     />);
 
     const filterButtons = wrapper.find(FilterButton)
-    expect(filterButtons.length).toEqual(3)
-    expect(filterButtons.at(0).props().onClick()).toEqual('all')
-    expect(filterButtons.at(1).props().onClick()).toEqual('complete')
-    expect(filterButtons.at(2).props().onClick()).toEqual('incomplete')
+    expect(filterButtons.length).toEqual(2)
+    expect(filterButtons.at(0).props().setFilter()).toEqual('complete')
+    expect(filterButtons.at(1).props().setFilter()).toEqual('incomplete')
+
+    expect(toJson(wrapper)).toMatchSnapshot()
+  })
+
+  it('renders all filter button and correct handlers', () => {
+    const wrapper = shallow(<ItemsList 
+      {...defaultProps}
+      filter='complete'
+      filterAll={() => 'all'}
+      filterComplete={() => 'complete'}
+      filterIncomplete={() => 'incomplete'}
+    />);
+
+    const filterButtons = wrapper.find(FilterButton)
+    expect(filterButtons.length).toEqual(2)
+    expect(filterButtons.at(0).props().setFilter()).toEqual('all')
+    expect(filterButtons.at(1).props().setFilter()).toEqual('incomplete')
 
     expect(toJson(wrapper)).toMatchSnapshot()
   })

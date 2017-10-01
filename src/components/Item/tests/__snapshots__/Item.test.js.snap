@@ -27,15 +27,15 @@ exports[`Item component calls toggleComplete() when toggle complete button click
   <span
     className="item item_incomplete"
   >
+    <span
+      className="item_content"
+    />
     <button
       className="item_toggleCompleteButton"
       onClick={[Function]}
     >
-      set to incomplete
+      set to done
     </button>
-    <span
-      className="item_content"
-    />
   </span>
 </Item>
 `;

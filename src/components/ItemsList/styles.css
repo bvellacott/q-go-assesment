@@ -5,3 +5,8 @@
 .itemsList-ul li {
   padding: 5px;
 }
+
+.filterList_actionBar li {
+	display: inline-block;
+	list-style: none;
+}

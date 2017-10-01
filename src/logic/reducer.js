@@ -12,6 +12,7 @@ export const initialState = {
     { id: 1, content: 'Make sure items are completeable' },
     { id: 2, content: 'Add filters (Use HOC)' },
   ],
+  filter: 'complete',
 }
 
 const reducer = (state = initialState, action) => {

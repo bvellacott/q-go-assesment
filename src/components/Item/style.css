@@ -1,0 +1,11 @@
+.item_content {
+	margin-right: 1rem;
+}
+
+.item_complete .item_content {
+	color: #5f5;
+}
+
+.item_incomplete .item_content {
+	color: #f85;
+}

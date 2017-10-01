@@ -10,14 +10,14 @@ import FilterButton from './FilterButton'
 import Item from '../Item'
 import './styles.css';
 
-export const ItemsList = ({ items, filterAll, 
+export const ItemsList = ({ items, filter, filterAll, 
   filterComplete, filterIncomplete, removeTodo, toggleTodoComplete }) => {
   return (
     <div>
       <ul className="filterList_actionBar">
-        <li><FilterButton onClick={filterAll} >Show all</FilterButton></li>
-        <li><FilterButton onClick={filterComplete} >Show complete</FilterButton></li>
-        <li><FilterButton onClick={filterIncomplete} >Show incomplete</FilterButton></li>
+        {filter !== 'all' && <li><FilterButton setFilter={filterAll} >Show all</FilterButton></li>}
+        {filter !== 'complete' && <li><FilterButton setFilter={filterComplete} >Show complete</FilterButton></li>}
+        {filter !== 'incomplete' && <li><FilterButton setFilter={filterIncomplete} >Show incomplete</FilterButton></li>}
       </ul>
       <ul className={'itemsList-ul'}>
         {items.length < 1 && <p id={'items-missing'}>Add some tasks above.</p>}
