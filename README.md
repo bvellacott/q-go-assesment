@@ -1,3 +1,7 @@
+# Comments
+I have three kids, so I took my time and did the assignment over the evening without timing myself. I wrote test driven which you'll see from the order of the commits. Obviously there's a ton of things that could be done with more time, like: styling, using reselect, immutable, normalizr, configuring eslint better, making the components more reusable (...FilterButton could really just be a generic button) etc... 
+
+
 # QGO Desktop Assessment
 
 ## Overview
